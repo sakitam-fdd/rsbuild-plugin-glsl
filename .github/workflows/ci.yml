@@ -98,6 +98,7 @@ jobs:
             ${{ runner.os }}-
       - run: npm i -g pnpm@9.6.0
       - run: pnpm i
+      - run: pnpm build
       - run: cd playground && pnpm run build
 
       - name: Deploy
