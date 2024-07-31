@@ -10,7 +10,7 @@ __webpack_require__.d(__webpack_exports__, {
     if(true) {
       (function() {
         var localsJsonString = "{\"wrap\":\"src-pages-Index-index-module__wrap-VqkzFA\",\"left\":\"src-pages-Index-index-module__left-yoaSml\",\"canvas\":\"src-pages-Index-index-module__canvas-tb_z9T\"}";
-        // 1722443165052
+        // 1722444576753
         var cssReload = (__webpack_require__("../node_modules/.pnpm/@rspack+core@1.0.0-beta.1_@swc+helpers@0.5.11/node_modules/@rspack/core/dist/builtin-plugin/css-extract/hmr/hotModuleReplacement.js")/* .cssReload */.cssReload)(module.id, {});
         // only invalidate when locals change
         if (

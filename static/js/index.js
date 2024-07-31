@@ -218,7 +218,7 @@ __webpack_require__.r(__webpack_exports__);
     if(true) {
       (function() {
         var localsJsonString = undefined;
-        // 1722443165051
+        // 1722444576752
         var cssReload = (__webpack_require__("../node_modules/.pnpm/@rspack+core@1.0.0-beta.1_@swc+helpers@0.5.11/node_modules/@rspack/core/dist/builtin-plugin/css-extract/hmr/hotModuleReplacement.js")/* .cssReload */.cssReload)(module.id, {});
         // only invalidate when locals change
         if (
@@ -626,7 +626,7 @@ __webpack_require__.hu = function (chunkId) {
 // webpack/runtime/get_full_hash
 (() => {
 __webpack_require__.h = function () {
-	return "36d014729823f5e2";
+	return "b9a0d332367494da";
 };
 
 })();
@@ -1135,7 +1135,7 @@ __webpack_require__.O = function (result, chunkIds, fn, priority) {
 })();
 // webpack/runtime/public_path
 (() => {
-__webpack_require__.p = "/";
+__webpack_require__.p = "/rsbuild-plugin-glsl/";
 
 })();
 // webpack/runtime/rspack_version
