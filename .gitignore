@@ -1,0 +1,32 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+**/node_modules
+
+# production
+dist
+
+# misc
+.DS_Store
+npm-debug.log*
+yarn-error.log
+yarn.lock
+
+/coverage
+test-results
+.idea
+*bak
+
+# visual studio code
+.vscode
+.history
+*.log
+functions/*
+.temp/**
+
+# screenshot
+screenshot
+.firebase
+.eslintcache
+.eslintrc-auto-import.json
+src/auto-imports.d.ts

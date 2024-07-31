@@ -1,0 +1,11 @@
+*.html
+
+node_modules
+
+# build
+coverage
+dist
+
+# config
+
+src/auto-imports.d.ts
