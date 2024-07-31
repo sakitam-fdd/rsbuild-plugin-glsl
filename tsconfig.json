@@ -3,6 +3,7 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "lib": ["dom", "esnext"],
+    "types": ["./ext"],
     "module": "esnext",
     "target": "esnext",
     "strict": true,

@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [master, dev]
+    branches: [main, dev]
   pull_request:
-    branches: [master, dev]
+    branches: [main, dev]
   workflow_dispatch:
 
 jobs:
@@ -39,7 +39,7 @@ jobs:
             ${{ runner.os }}-${{ matrix.node-version }}-test-
             ${{ runner.os }}-
       - name: Install pnpm
-        run: npm i -g pnpm@8.6.11
+        run: npm i -g pnpm@9.6.0
 
       - name: Install deps
         run: pnpm i && pnpm exec playwright install
@@ -68,7 +68,7 @@ jobs:
             ${{ runner.os }}-${{ matrix.node-version }}-release-${{ env.cache-name }}-
             ${{ runner.os }}-${{ matrix.node-version }}-release-
             ${{ runner.os }}-
-      - run: npm i -g pnpm@8.6.11
+      - run: npm i -g pnpm@9.6.0
       - run: pnpm i
       - run: pnpm semantic-release
         env:

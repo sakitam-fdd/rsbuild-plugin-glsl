@@ -34,8 +34,8 @@
   "homepage": "https://github.com/sakitam-fdd/rsbuild-plugin-glsl#readme",
   "author": "sakitam-fdd <smilefdd@gmail.com>",
   "scripts": {
-    "dev": "tsup-node src/index.ts --sourcemap --format esm,cjs --watch --dts --shims",
-    "build": "tsup-node src/index.ts --sourcemap --format esm,cjs --dts --shims",
+    "dev": "tsup-node --entry src/index.ts --entry src/glsl-loader.ts --sourcemap --format esm,cjs --watch --dts --shims",
+    "build": "tsup-node --entry src/index.ts --entry src/glsl-loader.ts --sourcemap --format esm,cjs --dts --shims",
     "lint": "eslint src --ext js,jsx,ts,tsx",
     "lint:write": "eslint src --ext js,jsx,ts,tsx --write",
     "format": "prettier --write \"**/**/*.{ts,tsx,js,vue,md}\"",
@@ -45,7 +45,7 @@
     "commit": "git add . && cz",
     "preinstall": "npx only-allow pnpm",
     "prepublishOnly": "npm run build",
-    "semantic-release": "semantic-release --branches master"
+    "semantic-release": "semantic-release --branches main"
   },
   "devDependencies": {
     "@playwright/test": "^1.45.3",
@@ -78,9 +78,9 @@
       "optional": true
     }
   },
-  "packageManager": "pnpm@8.6.11",
+  "packageManager": "pnpm@9.6.0",
   "engines": {
-    "node": ">= 18.16.0"
+    "node": ">= 20.15.0"
   },
   "publishConfig": {
     "access": "public",
