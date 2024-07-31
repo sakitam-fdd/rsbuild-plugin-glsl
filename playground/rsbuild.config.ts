@@ -63,6 +63,9 @@ export default defineConfig({
           ],
         }),
       ],
+      output: {
+        publicPath: '/rsbuild-plugin-glsl/',
+      },
     },
     postcss: {
       postcssOptions: {
