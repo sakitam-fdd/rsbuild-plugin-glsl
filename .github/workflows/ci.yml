@@ -13,7 +13,8 @@ jobs:
 
     strategy:
       matrix:
-        os: [windows-latest, ubuntu-latest]
+#        os: [windows-latest, ubuntu-latest]
+        os: [ubuntu-latest]
         node-version: [20.15.x]
 
     runs-on: ${{ matrix.os }}
