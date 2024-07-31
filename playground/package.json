@@ -4,7 +4,8 @@
   "private": true,
   "description": "playground",
   "scripts": {
-    "rsbuild": "rsbuild dev",
+    "dev": "rsbuild dev",
+    "build": "rsbuild build",
     "tsc": "tsc --noEmit"
   },
   "packageManager": "pnpm@8.6.11",

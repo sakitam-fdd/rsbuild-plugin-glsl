@@ -27,17 +27,17 @@ Add plugin to your `rsbuild.config.ts`:
 
 ```ts
 // rsbuild.config.ts
+
+import UnoCSS from '@unocss/postcss';
 import { defineConfig } from '@rsbuild/core';
 import { pluginGlsl } from 'rsbuild-plugin-glsl';
 
-import { defineConfig } from '@rsbuild/core';
 import { pluginReact } from '@rsbuild/plugin-react';
 import { pluginLess } from '@rsbuild/plugin-less';
 import AutoImport from 'unplugin-auto-import/rspack';
 import { resolve } from 'path';
 
 import IconsResolver from 'unplugin-icons/resolver';
-import { pluginGlsl } from './lib/plugin-glsl';
 
 export default defineConfig({
   html: {
@@ -50,11 +50,15 @@ export default defineConfig({
     alias: {
       '@': resolve(__dirname, './src'),
     },
+    define: {
+      'process.env.APP_TITLE': JSON.stringify(process.env.APP_TITLE),
+    },
   },
   output: {
     externals: {
-      'mapbox-gl': 'mapboxgl',
+      // 'mapbox-gl': 'mapboxgl',
     },
+    assetPrefix: '/rsbuild-plugin-glsl/',
   },
   plugins: [pluginReact(), pluginLess(), pluginGlsl()],
   tools: {
@@ -89,6 +93,11 @@ export default defineConfig({
           ],
         }),
       ],
+    },
+    postcss: {
+      postcssOptions: {
+        plugins: [UnoCSS()],
+      },
     },
   },
   server: {
