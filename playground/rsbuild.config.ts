@@ -28,6 +28,7 @@ export default defineConfig({
     externals: {
       // 'mapbox-gl': 'mapboxgl',
     },
+    assetPrefix: '/rsbuild-plugin-glsl/',
   },
   plugins: [pluginReact(), pluginLess(), pluginGlsl()],
   tools: {
@@ -66,7 +67,7 @@ export default defineConfig({
     postcss: {
       postcssOptions: {
         plugins: [UnoCSS()],
-      }
+      },
     },
   },
   server: {
