@@ -257,6 +257,10 @@ void main (void) {
 }
 ```
 
+## Acknowledgments
+
+- https://github.com/UstymUkhman/vite-plugin-glsl
+
 ## License
 
 [MIT](./LICENSE).

@@ -40,6 +40,7 @@
     "lint:write": "eslint src --ext js,jsx,ts,tsx --write",
     "format": "prettier --write \"**/**/*.{ts,tsx,js,vue,md}\"",
     "prettier": "prettier --write .",
+    "pretest": "pnpm run build",
     "test": "playwright test",
     "prepare": "husky install",
     "commit": "git add . && cz",
