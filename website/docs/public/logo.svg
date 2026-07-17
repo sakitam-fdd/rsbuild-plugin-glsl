@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Rsbuild GLSL logo">
+  <defs>
+    <linearGradient id="g" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#58e6ff"/>
+      <stop offset=".52" stop-color="#8b7cff"/>
+      <stop offset="1" stop-color="#ff6dc8"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="#07111f"/>
+  <path d="M10 39c7-16 12-16 18 0s11 16 18 0 8-14 10-14" fill="none" stroke="url(#g)" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="19" cy="22" r="4" fill="#58e6ff"/>
+  <circle cx="45" cy="22" r="4" fill="#ff6dc8"/>
+</svg>

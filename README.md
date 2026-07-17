@@ -1,275 +1,108 @@
 # rsbuild-plugin-glsl
 
-rsbuild-plugin-glsl is a Rsbuild plugin to process GLSL shader files.
+[中文](#中文) · [English](#english) · [Documentation](https://sakitam-fdd.github.io/rsbuild-plugin-glsl/)
 
-<p>
-  <a href="https://npmjs.com/package/rsbuild-plugin-glsl">
-   <img src="https://img.shields.io/npm/v/rsbuild-plugin-glsl?style=flat-square&colorA=444D56&colorB=28A745" alt="npm version" />
-  </a>
-  <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square&colorA=444D56&colorB=28A745" alt="license" />
+[![npm](https://img.shields.io/npm/v/rsbuild-plugin-glsl?style=flat-square)](https://www.npmjs.com/package/rsbuild-plugin-glsl)
+[![CI](https://github.com/sakitam-fdd/rsbuild-plugin-glsl/actions/workflows/ci.yml/badge.svg)](https://github.com/sakitam-fdd/rsbuild-plugin-glsl/actions/workflows/ci.yml)
+[![license](https://img.shields.io/npm/l/rsbuild-plugin-glsl?style=flat-square)](./LICENSE)
 
-  <a href="https://github.com/sakitam-fdd/rsbuild-plugin-glsl/actions/workflows/ci.yml" target="_blank">
-    <img alt="CI" src="https://github.com/sakitam-fdd/rsbuild-plugin-glsl/actions/workflows/ci.yml/badge.svg" />
-  </a>
-</p>
+## 中文
 
-## Usage
+为 Rsbuild 提供 GLSL、WGSL 和模块化 shader 文件导入。支持递归 `#include`、依赖监听、重复模块检测/去重、异步后处理和生产压缩。
 
-Install:
+### 安装
 
 ```bash
-npm i rsbuild-plugin-glsl -D
-
-pnpm i rsbuild-plugin-glsl -D
+pnpm add -D rsbuild-plugin-glsl
 ```
 
-Add plugin to your `rsbuild.config.ts`:
-
-```ts
-// rsbuild.config.ts
-
-import UnoCSS from '@unocss/postcss';
+```ts title="rsbuild.config.ts"
 import { defineConfig } from '@rsbuild/core';
 import { pluginGlsl } from 'rsbuild-plugin-glsl';
 
-import { pluginReact } from '@rsbuild/plugin-react';
-import { pluginLess } from '@rsbuild/plugin-less';
-import AutoImport from 'unplugin-auto-import/rspack';
-import { resolve } from 'path';
-
-import IconsResolver from 'unplugin-icons/resolver';
-
-export default defineConfig({
-  html: {
-    template: './index.html',
-  },
-  source: {
-    entry: {
-      index: './src/index.tsx',
-    },
-    alias: {
-      '@': resolve(__dirname, './src'),
-    },
-    define: {
-      'process.env.APP_TITLE': JSON.stringify(process.env.APP_TITLE),
-    },
-  },
-  output: {
-    externals: {
-      // 'mapbox-gl': 'mapboxgl',
-    },
-    assetPrefix: '/rsbuild-plugin-glsl/',
-  },
-  plugins: [pluginReact(), pluginLess(), pluginGlsl()],
-  tools: {
-    rspack: {
-      plugins: [
-        AutoImport({
-          // dts: path.resolve(pathSrc, 'typings', 'auto-imports.d.ts'),
-          dts: 'types/auto-imports.d.ts',
-          // dirs: ['./src/hooks'],
-          // Generate corresponding .eslintrc-auto-import.json file.
-          // eslint globals Docs - https://eslint.org/docs/user-guide/configuring/language-options#specifying-globals
-          eslintrc: {
-            enabled: true,
-          },
-          imports: [
-            'react',
-            {
-              // 全局使用 _.xxxx()
-              'lodash-es': [
-                // default imports
-                ['*', '_'], // import { * as _ } from 'lodash-es',
-              ],
-            },
-          ],
-          // Auto import functions from UILibrary, e.g. Message, Spin, Loading, MessageBox... (with style)
-          resolvers: [
-            IconsResolver({
-              prefix: 'icon',
-              extension: 'jsx',
-              customCollections: ['custom'],
-            }),
-          ],
-        }),
-      ],
-    },
-    postcss: {
-      postcssOptions: {
-        plugins: [UnoCSS()],
-      },
-    },
-  },
-  server: {
-    proxy: {},
-  },
-});
-
+export default defineConfig(({ envMode }) => ({
+  plugins: [
+    pluginGlsl({
+      minify: envMode === 'production',
+      removeDuplicatedImports: true,
+    }),
+  ],
+}));
 ```
 
-### With TypeScript ###
+```glsl title="main.frag"
+#include chunks/color;
 
-Add extension declarations to your [`types`](https://www.typescriptlang.org/tsconfig#types) in `tsconfig.json`:
-
-```json
-{
-  "compilerOptions": {
-    "types": [
-      "rsbuild-plugin-glsl/ext"
-    ]
-  }
+void main() {
+  gl_FragColor = getColor();
 }
 ```
 
-or as a [package dependency directive](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html#-reference-types-) to your global types:
+```ts
+import fragmentShader from './main.frag';
+```
+
+TypeScript 项目在 `compilerOptions.types` 中加入 `rsbuild-plugin-glsl/ext`。
+
+完整的[中文指南](https://sakitam-fdd.github.io/rsbuild-plugin-glsl/)、[配置 API](https://sakitam-fdd.github.io/rsbuild-plugin-glsl/api/options)和[实时示例](https://sakitam-fdd.github.io/rsbuild-plugin-glsl/examples/)由 Rspress 构建。
+
+## English
+
+Import GLSL, WGSL and modular shader files in Rsbuild. Recursive includes, dependency watching, duplicate detection/removal, async post-processing and production minification are built in.
+
+### Install
+
+```bash
+npm install --save-dev rsbuild-plugin-glsl
+```
+
+```ts title="rsbuild.config.ts"
+import { defineConfig } from '@rsbuild/core';
+import { pluginGlsl } from 'rsbuild-plugin-glsl';
+
+export default defineConfig(({ envMode }) => ({
+  plugins: [
+    pluginGlsl({
+      minify: envMode === 'production',
+      removeDuplicatedImports: true,
+    }),
+  ],
+}));
+```
 
 ```ts
-/// <reference types="rsbuild-plugin-glsl/ext" />
+import fragmentShader from './main.frag';
 ```
+
+Add `rsbuild-plugin-glsl/ext` to `compilerOptions.types` in TypeScript applications.
+
+Read the full [English guide](https://sakitam-fdd.github.io/rsbuild-plugin-glsl/en/guide/getting-started), [API reference](https://sakitam-fdd.github.io/rsbuild-plugin-glsl/en/api/options) and [live examples](https://sakitam-fdd.github.io/rsbuild-plugin-glsl/en/examples/).
 
 ## Options
 
-| Option  | Desc                                  | Type      | Default |
-|---------|---------------------------------------|-----------|---------|
-| root    | Directory for root imports            | `string`  | `/`     |
-| include | Glob pattern, RegExp for include file | `RegExp`  |   `/\.(glsl|wgsl|vert|frag|vs|fs)$/`      |
-| exclude     | Glob pattern, RegExp for ignore       | `RegExp`  |     `undefined`   |
-| warnDuplicatedImports     | Warn if the same chunk was imported multiple times       | `boolean` | `true`  |
-| compress     | Compress output shader code      | `boolean` | `true`  |
-| defaultExtension     | Shader suffix when no extension is specified      | `string` | `glsl`  |
+| Option                    | Default                 | Notes                                  |
+| ------------------------- | ----------------------- | -------------------------------------- |
+| `include`                 | shader extension RegExp | Rspack `RuleSetCondition`              |
+| `exclude`                 | `undefined`             | Rspack `RuleSetCondition`              |
+| `defaultExtension`        | `'glsl'`                | Appended to extension-less chunks      |
+| `warnDuplicatedImports`   | `true`                  | One warning per importer/chunk pair    |
+| `removeDuplicatedImports` | `false`                 | Inline a chunk once per entry graph    |
+| `importKeywords`          | `['#include']`          | Custom directives are supported        |
+| `onComplete`              | `undefined`             | Async final processor                  |
+| `minify`                  | `false`                 | Boolean or custom async processor      |
+| `compress`                | `false`                 | Deprecated alias of `minify`           |
+| `watch`                   | `true`                  | Register all chunks with Rspack        |
+| `root`                    | `'/'`                   | Project-relative base for root imports |
 
-- Example:
+## Compatibility and reliability
 
-```js
-pluginGlsl({
-  include: /\.(glsl|wgsl|vert|frag|vs|fs)$/,
-  exclude: undefined,
-  warnDuplicatedImports: true,
-  defaultExtension: 'glsl',
-  compress: false,
-  root: '/'
-});
-```
+- Rsbuild `1.x` and `2.x`; Node.js `^20.19.0 || >=22.12.0`.
+- ESM and CommonJS package conditions with matching `.d.ts` and `.d.cts` declarations.
+- Per-transform state: parallel entries and multi-environment builds cannot leak dependency state.
+- CI covers Linux, Windows, minimum/latest Node, Rsbuild 1 compatibility, package export validation and the Rspress production build.
 
-## Example ##
-
-```
-root
-├── src/
-│   ├── glsl/
-│   │   ├── chunk0.frag
-│   │   ├── chunk3.frag
-│   │   ├── main.frag
-│   │   ├── main.vert
-│   │   └── utils/
-│   │       ├── chunk1.glsl
-│   │       └── chunk2.frag
-│   └── main.js
-├── rsbuild.config.ts
-└── package.json
-```
-
-```js
-// main.js
-import fragment from './glsl/main.frag';
-```
-
-```glsl
-// main.frag
-#version 300 es
-
-#ifndef GL_FRAGMENT_PRECISION_HIGH
-	precision mediump float;
-#else
-	precision highp float;
-#endif
-
-out vec4 fragColor;
-
-#include chunk0.frag;
-
-void main (void) {
-  fragColor = chunkFn();
-}
-```
-
-```glsl
-// chunk0.frag
-
-// ".glsl" extension will be added automatically:
-#include utils/chunk1;
-
-vec4 chunkFn () {
-  return vec4(chunkRGB(), 1.0);
-}
-```
-
-```glsl
-// utils/chunk1.glsl
-
-#include chunk2.frag;
-#include ../chunk3.frag;
-
-vec3 chunkRGB () {
-  return vec3(chunkRed(), chunkGreen(), 0.0);
-}
-```
-
-```glsl
-// utils/chunk2.frag
-
-float chunkRed () {
-  return 0.0;
-}
-```
-
-```glsl
-// chunk3.frag
-
-float chunkGreen () {
-  return 0.8;
-}
-```
-
-Will result in:
-
-```glsl
-// main.frag
-#version 300 es
-
-#ifndef GL_FRAGMENT_PRECISION_HIGH
-	precision mediump float;
-#else
-	precision highp float;
-#endif
-
-out vec4 fragColor;
-
-float chunkRed () {
-  return 0.0;
-}
-
-float chunkGreen () {
-  return 0.8;
-}
-
-vec3 chunkRGB () {
-  return vec3(chunkRed(), chunkGreen(), 0.0);
-}
-
-vec4 chunkFn () {
-  return vec4(chunkRGB(), 1.0);
-}
-
-void main (void) {
-  fragColor = chunkFn();
-}
-```
-
-## Acknowledgments
-
-- https://github.com/UstymUkhman/vite-plugin-glsl
+Inspired by [vite-plugin-glsl](https://github.com/UstymUkhman/vite-plugin-glsl).
 
 ## License
 
-[MIT](./LICENSE).
+[MIT](./LICENSE)

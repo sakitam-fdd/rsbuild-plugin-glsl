@@ -5,14 +5,18 @@
 
 # production
 dist
+.rslib
 
 # misc
 .DS_Store
 npm-debug.log*
 yarn-error.log
 yarn.lock
+.pnpm-store/
 
 /coverage
+website/doc_build
+*.tsbuildinfo
 test-results
 .idea
 *bak

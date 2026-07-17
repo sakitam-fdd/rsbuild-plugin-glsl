@@ -1,0 +1,26 @@
+---
+pageType: home
+
+hero:
+  name: rsbuild-plugin-glsl
+  text: Shader 也应该拥有可靠的构建链路
+  tagline: 模块化导入、依赖监听、并发安全与 GLSL / WGSL 类型支持，面向 Rsbuild 1.x 与 2.x。
+  actions:
+    - theme: brand
+      text: 5 分钟开始
+      link: /guide/getting-started
+    - theme: alt
+      text: 浏览实时示例
+      link: /examples/
+
+features:
+  - title: 无共享状态
+    details: 每个 shader 独立解析依赖图，并行构建、SSR 和多环境编译互不串扰。
+    icon: ◌
+  - title: 依赖感知
+    details: 所有嵌套 chunk 都注册到 Rspack，修改任意模块即可触发正确重编译。
+    icon: ⌁
+  - title: 面向未来
+    details: 同时支持 Rsbuild 1/2、GLSL/WGSL，以及异步后处理和自定义导入指令。
+    icon: ↗
+---

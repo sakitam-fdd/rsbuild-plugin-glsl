@@ -1,0 +1,28 @@
+---
+pageType: doc-wide
+sidebar: false
+outline: false
+---
+
+# Example gallery
+
+import { ShaderGallery } from '../../../theme/components/ShaderGallery';
+
+These are live canvases, not recordings. Rspress imports the repository's `.vert`, `.frag` and `.glsl` files through the workspace build of `rsbuild-plugin-glsl`, then vanilla WebGL draws them. Together they exercise relative and root imports, nested chunks, dependency deduplication and the Rspress/Rsbuild integration.
+
+<ShaderGallery lang="en" />
+
+```text
+*.vert / *.frag
+      │  #include
+      ▼
+*.glsl chunks ──→ Rspack dependency graph
+      │
+      ▼
+export default "expanded shader source"
+      │
+      ▼
+WebGL compile → link → draw
+```
+
+Continue with the copy-ready [vanilla WebGL](/en/examples/webgl), [Three.js](/en/examples/threejs) and [WebGPU / WGSL](/en/examples/webgpu) examples.

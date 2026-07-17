@@ -1,0 +1,6 @@
+[
+  { "type": "file", "name": "index", "label": "示例画廊" },
+  { "type": "file", "name": "webgl", "label": "原生 WebGL" },
+  { "type": "file", "name": "threejs", "label": "Three.js" },
+  { "type": "file", "name": "webgpu", "label": "WebGPU / WGSL" }
+]

@@ -1,6 +1,24 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base", "schedule:monthly", "group:allNonMajor"],
-  "rangeStrategy": "bump",
-  "packageRules": [{ "depTypeList": ["peerDependencies"], "enabled": false }]
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: [
+    'config:recommended',
+    ':dependencyDashboard',
+    'group:monorepos',
+    'helpers:pinGitHubActionDigests',
+  ],
+  timezone: 'Asia/Shanghai',
+  schedule: ['before 7am on monday'],
+  rangeStrategy: 'bump',
+  labels: ['dependencies'],
+  packageRules: [
+    {
+      description: 'Keep the Rstack toolchain aligned',
+      matchPackageNames: ['@rsbuild/**', '@rslib/**', '@rslint/**', '@rspress/**', '@rstest/**'],
+      groupName: 'Rstack toolchain',
+    },
+    {
+      matchDepTypes: ['peerDependencies'],
+      rangeStrategy: 'widen',
+    },
+  ],
 }

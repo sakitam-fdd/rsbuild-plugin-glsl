@@ -1,0 +1,30 @@
+---
+pageType: doc-wide
+sidebar: false
+outline: false
+---
+
+# 示例画廊
+
+import { ShaderGallery } from '../../../theme/components/ShaderGallery';
+
+这些画面不是录屏或预渲染图片。Rspress 自身通过工作区版本的 `rsbuild-plugin-glsl` 导入 shader，浏览器再用原生 WebGL 绘制。它同时验证了相对导入、根路径导入、嵌套 chunk、依赖去重和 Rspress/Rsbuild 集成。
+
+<ShaderGallery lang="zh" />
+
+## 仓库中的数据流
+
+```text
+*.vert / *.frag
+      │  #include
+      ▼
+*.glsl chunks ──→ Rspack dependency graph
+      │
+      ▼
+export default "expanded shader source"
+      │
+      ▼
+WebGL compile → link → draw
+```
+
+继续查看可复制的[原生 WebGL](/examples/webgl)、[Three.js](/examples/threejs) 和 [WebGPU / WGSL](/examples/webgpu) 示例。

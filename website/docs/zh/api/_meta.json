@@ -1,0 +1,4 @@
+[
+  { "type": "file", "name": "options", "label": "配置项" },
+  { "type": "file", "name": "exports", "label": "导出 API" }
+]

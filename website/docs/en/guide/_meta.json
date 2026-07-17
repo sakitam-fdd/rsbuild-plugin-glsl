@@ -1,0 +1,7 @@
+[
+  { "type": "file", "name": "getting-started", "label": "Getting started" },
+  { "type": "file", "name": "includes", "label": "Modular shaders" },
+  { "type": "file", "name": "typescript", "label": "TypeScript" },
+  { "type": "file", "name": "migration", "label": "Migration & compatibility" },
+  { "type": "file", "name": "troubleshooting", "label": "Troubleshooting" }
+]

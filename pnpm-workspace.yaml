@@ -1,2 +1,24 @@
 packages:
-  - playground
+  - website
+
+overrides:
+  # 1.0.0 publishes a CJS default export shape that breaks Rspress' MDX pipeline.
+  style-to-js: 1.1.17
+
+allowBuilds:
+  core-js: true
+  esbuild: true
+
+minimumReleaseAgeExclude:
+  - '@rslint/core@0.7.0'
+  - '@rslint/native-darwin-arm64@0.7.0'
+  - '@rslint/native-darwin-x64@0.7.0'
+  - '@rslint/native-linux-arm64-gnu@0.7.0'
+  - '@rslint/native-linux-arm64-musl@0.7.0'
+  - '@rslint/native-linux-x64-gnu@0.7.0'
+  - '@rslint/native-linux-x64-musl@0.7.0'
+  - '@rslint/native-win32-arm64-msvc@0.7.0'
+  - '@rslint/native-win32-x64-msvc@0.7.0'
+
+strictPeerDependencies: true
+confirmModulesPurge: false

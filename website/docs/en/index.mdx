@@ -1,0 +1,26 @@
+---
+pageType: home
+
+hero:
+  name: rsbuild-plugin-glsl
+  text: Shaders deserve a reliable build pipeline
+  tagline: Modular imports, dependency watching, concurrency safety and GLSL / WGSL types for Rsbuild 1.x and 2.x.
+  actions:
+    - theme: brand
+      text: Start in 5 minutes
+      link: /en/guide/getting-started
+    - theme: alt
+      text: Explore live examples
+      link: /en/examples/
+
+features:
+  - title: Isolated by design
+    details: Each shader gets an independent dependency graph, safe across parallel, SSR and multi-environment builds.
+    icon: ◌
+  - title: Dependency aware
+    details: Every nested chunk is registered with Rspack, so edits invalidate exactly the shaders that use it.
+    icon: ⌁
+  - title: Forward looking
+    details: Rsbuild 1/2, GLSL/WGSL, async post-processing and custom import directives in one small plugin.
+    icon: ↗
+---

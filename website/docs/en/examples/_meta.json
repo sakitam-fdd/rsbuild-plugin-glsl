@@ -1,0 +1,6 @@
+[
+  { "type": "file", "name": "index", "label": "Example gallery" },
+  { "type": "file", "name": "webgl", "label": "Vanilla WebGL" },
+  { "type": "file", "name": "threejs", "label": "Three.js" },
+  { "type": "file", "name": "webgpu", "label": "WebGPU / WGSL" }
+]

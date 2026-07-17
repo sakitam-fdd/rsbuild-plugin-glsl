@@ -1,18 +1,21 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
-    "baseUrl": "./",
-    "lib": ["dom", "esnext"],
-    "types": ["./ext"],
-    "module": "esnext",
-    "target": "esnext",
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "rootDir": "src",
+    "moduleDetection": "force",
     "strict": true,
-    "declaration": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "verbatimModuleSyntax": true,
     "isolatedModules": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
     "resolveJsonModule": true,
-    "moduleResolution": "node"
+    "skipLibCheck": true,
+    "types": ["node", "@rstest/core/globals", "./ext"],
+    "noEmit": true
   },
-  "include": ["src", "test"]
+  "include": ["src"],
+  "exclude": ["dist", "website", "playground"]
 }

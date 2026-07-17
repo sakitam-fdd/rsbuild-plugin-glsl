@@ -1,0 +1,7 @@
+[
+  { "type": "file", "name": "getting-started", "label": "快速开始" },
+  { "type": "file", "name": "includes", "label": "模块化 Shader" },
+  { "type": "file", "name": "typescript", "label": "TypeScript" },
+  { "type": "file", "name": "migration", "label": "迁移与兼容" },
+  { "type": "file", "name": "troubleshooting", "label": "故障排查" }
+]

@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "types": ["node", "@rstest/core/globals", "./ext"]
+  },
+  "include": ["test", "rslib.config.ts", "rstest.config.ts"]
+}

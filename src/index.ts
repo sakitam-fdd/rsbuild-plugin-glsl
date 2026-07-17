@@ -1,62 +1,53 @@
-import path from 'node:path';
-import type { RsbuildPlugin, Rspack } from '@rsbuild/core';
+import { dirname, extname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import type { RsbuildPlugin } from '@rsbuild/core';
+import { resolveOptions } from './core';
+import type { PluginGlslOptions } from './types';
+
+export {
+  DEFAULT_OPTIONS,
+  DEFAULT_SHADER_PATTERN,
+  minifyShader,
+  resolveOptions,
+  stripShaderComments,
+  transformShader,
+} from './core';
+export type {
+  PluginGlslOptions,
+  ResolvedPluginGlslOptions,
+  ShaderProcessor,
+  TransformShaderOptions,
+  TransformShaderResult,
+} from './types';
 
 export const PLUGIN_GLSL_NAME = 'rsbuild:glsl';
 
-/**
- * @const
- * @default
- * @readonly
- * @type {string}
- */
-const DEFAULT_EXTENSION: string = 'glsl';
-
-export interface PluginGlslOptions {
-  include?: Rspack.RuleSetCondition;
-
-  exclude?: Rspack.RuleSetCondition;
-
-  defaultExtension?: string;
-
-  warnDuplicatedImports?: boolean;
-
-  compress?: boolean;
-
-  root?: string;
+function getLoaderPath(): string {
+  const currentFile = fileURLToPath(import.meta.url);
+  const loaderExtension = extname(currentFile) === '.cjs' ? '.cjs' : '.js';
+  return join(dirname(currentFile), `glsl-loader${loaderExtension}`);
 }
 
-export const pluginGlsl = (
-  pluginOptions: PluginGlslOptions = {
-    root: '/',
-    exclude: undefined,
-    include: /\.(glsl|wgsl|vert|frag|vs|fs)$/,
-    warnDuplicatedImports: true,
-    compress: false,
-    defaultExtension: DEFAULT_EXTENSION,
-  },
-): RsbuildPlugin => ({
-  name: PLUGIN_GLSL_NAME,
+export const pluginGlsl = (options: PluginGlslOptions = {}): RsbuildPlugin => {
+  const resolvedOptions = resolveOptions(options);
 
-  setup(api) {
-    api.modifyBundlerChain(async (chain, { isProd, environment, target }) => {
-      const { config } = environment;
-      const usingHMR = !isProd && config.dev.hmr && target === 'web';
-      const rule = chain.module
-        .rule('glsl')
-        .type('javascript/auto')
-        .test(pluginOptions.include!)
-        // .merge({ sideEffects: true })
-        .use('glsl')
-        .loader(path.join(__dirname, './glsl-loader.js'))
-        .options({
-          ...pluginOptions,
-          usingHMR,
-        })
-        .end();
+  return {
+    name: PLUGIN_GLSL_NAME,
+    setup(api) {
+      api.modifyBundlerChain((chain) => {
+        const rule = chain.module
+          .rule('glsl')
+          .type('javascript/auto')
+          .test(resolvedOptions.include)
+          .use('glsl')
+          .loader(getLoaderPath())
+          .options(resolvedOptions)
+          .end();
 
-      if (pluginOptions.exclude) {
-        rule.exclude.add(pluginOptions.exclude);
-      }
-    });
-  },
-});
+        if (resolvedOptions.exclude) {
+          rule.exclude.add(resolvedOptions.exclude);
+        }
+      });
+    },
+  };
+};

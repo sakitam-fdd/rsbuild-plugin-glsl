@@ -1,0 +1,337 @@
+:root {
+  --rp-c-brand: #5bdbef;
+  --rp-c-brand-light: #8cecff;
+  --rp-c-brand-lighter: #b9f4ff;
+  --rp-c-brand-dark: #39bcd3;
+  --rp-c-brand-darker: #2398b0;
+  --rp-c-link: #45cce3;
+  --shader-ink: #07111f;
+  --shader-panel: #0a1929;
+  --shader-line: rgba(119, 211, 239, 0.18);
+}
+
+html.dark {
+  --rp-c-bg: #06101c;
+  --rp-c-bg-soft: #091827;
+  --rp-c-bg-mute: #0e2032;
+  --rp-c-divider: rgba(136, 202, 229, 0.16);
+  --rp-c-text-1: #edfaff;
+  --rp-c-text-2: #a7c2d1;
+  --rp-c-text-3: #718b9b;
+}
+
+body {
+  background:
+    radial-gradient(circle at 18% 4%, rgba(54, 204, 232, 0.1), transparent 27rem),
+    radial-gradient(circle at 82% 16%, rgba(155, 104, 255, 0.08), transparent 25rem), var(--rp-c-bg);
+}
+
+::selection {
+  color: #06101c;
+  background: #79e7f7;
+}
+
+.rp-home-hero__title {
+  max-width: 900px;
+  font-size: clamp(3rem, 8vw, 6.7rem) !important;
+  letter-spacing: -0.065em;
+}
+
+.rp-home-hero__text {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  letter-spacing: 0.02em;
+}
+
+.rp-home-feature {
+  border: 1px solid var(--shader-line) !important;
+  background: linear-gradient(145deg, rgba(12, 35, 54, 0.9), rgba(7, 20, 34, 0.82)) !important;
+}
+
+.shader-gallery {
+  width: min(1180px, calc(100vw - 32px));
+  margin: 5rem 50% 2rem;
+  padding: 1px;
+  transform: translateX(-50%);
+  color: #eafaff;
+}
+
+.shader-gallery-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 1.3rem;
+}
+
+.shader-gallery-header h2 {
+  max-width: 760px;
+  margin: 0;
+  color: #f3fcff;
+  font-size: clamp(2.2rem, 5vw, 4.8rem);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+}
+
+.shader-gallery-header > div > p:last-child {
+  max-width: 680px;
+  margin: 1rem 0 0;
+  color: #91adbd;
+  line-height: 1.65;
+}
+
+.shader-kicker {
+  margin: 0 0 0.8rem;
+  color: #66def1;
+  font:
+    700 0.7rem/1 ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace;
+  letter-spacing: 0.16em;
+}
+
+.shader-play {
+  flex: 0 0 auto;
+  border: 1px solid #4ad2e8;
+  border-radius: 999px;
+  background: transparent;
+  color: #9eeef9;
+  padding: 0.72rem 1.15rem;
+  font:
+    700 0.78rem/1 ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace;
+  cursor: pointer;
+  transition: 160ms ease;
+}
+
+.shader-play:hover {
+  color: #05101c;
+  background: #6ce2f3;
+  transform: translateY(-2px);
+}
+
+.shader-controls {
+  display: grid;
+  grid-template-columns: 220px 220px 1fr;
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid var(--shader-line);
+  border-radius: 13px 13px 0 0;
+  background: var(--shader-line);
+}
+
+.shader-controls label,
+.shader-pipeline {
+  min-width: 0;
+  background: #091827;
+  padding: 0.85rem 1rem;
+}
+
+.shader-controls label > span {
+  display: flex;
+  justify-content: space-between;
+  color: #87a6b7;
+  font:
+    650 0.68rem/1 ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.shader-controls output {
+  color: #72e5f4;
+}
+
+.shader-controls input {
+  width: 100%;
+  height: 3px;
+  margin: 0.8rem 0 0.25rem;
+  accent-color: #5bdcf0;
+  cursor: pointer;
+}
+
+.shader-pipeline {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.55rem;
+  color: #6d8b9d;
+  font:
+    700 0.64rem/1 ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace;
+  letter-spacing: 0.08em;
+}
+
+.shader-pipeline span:last-child {
+  color: #68e5bd;
+}
+
+.shader-pipeline b {
+  color: #28475b;
+}
+
+.shader-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid var(--shader-line);
+  border-top: 0;
+  border-radius: 0 0 18px 18px;
+  background: var(--shader-line);
+  box-shadow: 0 30px 90px rgba(0, 3, 10, 0.32);
+}
+
+.shader-card {
+  min-width: 0;
+  background: #07131f;
+}
+
+.shader-canvas-shell {
+  position: relative;
+  height: 390px;
+  overflow: hidden;
+  background: #050b13;
+}
+
+.shader-canvas-shell canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.shader-status {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  border: 1px solid rgba(132, 222, 243, 0.22);
+  border-radius: 999px;
+  background: rgba(5, 14, 24, 0.72);
+  color: #9dc1cf;
+  padding: 0.38rem 0.62rem;
+  font:
+    600 0.58rem/1 ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace;
+  backdrop-filter: blur(12px);
+}
+
+.shader-status i {
+  display: inline-block;
+  width: 0.38rem;
+  height: 0.38rem;
+  margin-right: 0.35rem;
+  border-radius: 50%;
+  background: #54e6b1;
+  box-shadow: 0 0 10px #54e6b1;
+}
+
+.shader-error {
+  position: absolute;
+  inset: 0;
+  overflow: auto;
+  margin: 0;
+  background: rgba(35, 7, 20, 0.94);
+  color: #ff9dbf;
+  padding: 1rem;
+  white-space: pre-wrap;
+}
+
+.shader-card footer {
+  display: flex;
+  gap: 1rem;
+  min-height: 94px;
+  padding: 1.05rem;
+}
+
+.shader-card footer > span {
+  color: #416477;
+  font:
+    700 0.7rem/1 ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace;
+}
+
+.shader-card h3 {
+  margin: 0;
+  color: #eafaff;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+}
+
+.shader-card footer p {
+  margin: 0.35rem 0 0;
+  color: #708e9f;
+  font:
+    0.65rem/1.4 ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace;
+}
+
+.api-badge {
+  display: inline-block;
+  border: 1px solid rgba(91, 220, 240, 0.3);
+  border-radius: 5px;
+  color: #73e4f5;
+  padding: 0.2rem 0.45rem;
+  font:
+    600 0.7rem/1 ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace;
+}
+
+@media (max-width: 900px) {
+  .shader-gallery-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .shader-controls {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .shader-pipeline {
+    display: none;
+  }
+
+  .shader-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .shader-canvas-shell {
+    height: 360px;
+  }
+}
+
+@media (max-width: 520px) {
+  .shader-gallery {
+    width: calc(100vw - 20px);
+    margin-top: 3rem;
+  }
+
+  .shader-controls {
+    grid-template-columns: 1fr;
+  }
+
+  .shader-canvas-shell {
+    height: 300px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shader-play,
+  .shader-play:hover {
+    transition: none;
+    transform: none;
+  }
+}

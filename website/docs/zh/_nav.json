@@ -1,0 +1,7 @@
+[
+  { "text": "首页", "link": "/" },
+  { "text": "指南", "link": "/guide/getting-started" },
+  { "text": "API", "link": "/api/options" },
+  { "text": "示例", "link": "/examples/" },
+  { "text": "GitHub", "link": "https://github.com/sakitam-fdd/rsbuild-plugin-glsl" }
+]

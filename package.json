@@ -1,114 +1,106 @@
 {
   "name": "rsbuild-plugin-glsl",
   "version": "1.0.1",
-  "description": "Import, inline (and compress) GLSL shader files",
+  "description": "Import, inline and minify GLSL, WGSL and shader chunks in Rsbuild",
+  "keywords": [
+    "rsbuild",
+    "rspack",
+    "glsl",
+    "wgsl",
+    "webgl",
+    "webgpu",
+    "shader",
+    "plugin"
+  ],
   "license": "MIT",
   "type": "module",
-  "main": "./dist/index.js",
+  "sideEffects": false,
+  "main": "./dist/index.cjs",
   "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/types/esm/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "import": {
+        "types": "./dist/types/esm/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/types/cjs/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     },
     "./ext": {
-      "types": "./ext.d.ts"
-    }
+      "import": {
+        "types": "./ext.d.ts",
+        "default": "./dist/ext.js"
+      },
+      "require": {
+        "types": "./ext.d.cts",
+        "default": "./dist/ext.cjs"
+      }
+    },
+    "./package.json": "./package.json"
   },
   "files": [
     "dist",
     "ext.d.ts",
+    "ext.d.cts",
     "LICENSE",
-    "README.md",
-    "package.json"
+    "README.md"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/sakitam-fdd/rsbuild-plugin-glsl"
+    "url": "git+https://github.com/sakitam-fdd/rsbuild-plugin-glsl.git"
   },
   "bugs": {
     "url": "https://github.com/sakitam-fdd/rsbuild-plugin-glsl/issues"
   },
-  "homepage": "https://github.com/sakitam-fdd/rsbuild-plugin-glsl#readme",
+  "homepage": "https://sakitam-fdd.github.io/rsbuild-plugin-glsl/",
   "author": "sakitam-fdd <smilefdd@gmail.com>",
   "scripts": {
-    "dev": "tsup-node --entry src/index.ts --entry src/glsl-loader.ts --sourcemap --format esm,cjs --watch --dts --shims",
-    "build": "tsup-node --entry src/index.ts --entry src/glsl-loader.ts --sourcemap --format esm,cjs --dts --shims",
-    "lint": "eslint src --ext js,jsx,ts,tsx",
-    "lint:write": "eslint src --ext js,jsx,ts,tsx --write",
-    "format": "prettier --write \"**/**/*.{ts,tsx,js,vue,md}\"",
-    "prettier": "prettier --write .",
-    "pretest": "pnpm run build",
-    "test": "playwright test",
-    "prepare": "husky install",
-    "commit": "git add . && cz",
-    "preinstall": "npx only-allow pnpm",
-    "prepublishOnly": "npm run build",
-    "semantic-release": "semantic-release --branches main"
+    "build": "rslib build",
+    "dev": "rslib build -w",
+    "lint": "rslint src test website && prettier --check .",
+    "lint:fix": "rslint --fix src test website && prettier --write .",
+    "typecheck": "pnpm build && tsc --noEmit && tsc -p tsconfig.test.json --noEmit && pnpm --filter @rsbuild-plugin-glsl/website typecheck",
+    "test": "pnpm build && rstest run",
+    "test:watch": "rstest",
+    "test:integration": "pnpm build && rstest run test/integration",
+    "docs:dev": "pnpm build && pnpm --filter @rsbuild-plugin-glsl/website dev",
+    "docs:build": "pnpm build && pnpm --filter @rsbuild-plugin-glsl/website build",
+    "docs:preview": "pnpm --filter @rsbuild-plugin-glsl/website preview",
+    "pack:check": "pnpm build && publint && attw --pack .",
+    "verify": "pnpm lint && pnpm typecheck && pnpm test && pnpm pack:check && pnpm docs:build",
+    "release:version": "pnpx bumpp",
+    "prepublishOnly": "pnpm pack:check"
   },
   "devDependencies": {
-    "@playwright/test": "^1.45.3",
-    "@rsbuild/core": "^1.0.1-beta.7",
-    "@aurorafe/eslint-config-base": "^1.1.0",
-    "@aurorafe/eslint-config-ts": "^1.1.0",
-    "@commitlint/cli": "^18.6.1",
-    "@commitlint/config-conventional": "^18.6.2",
-    "@semantic-release/changelog": "^6.0.3",
-    "@semantic-release/commit-analyzer": "^13.0.0",
-    "@semantic-release/git": "^10.0.1",
-    "@semantic-release/release-notes-generator": "^14.0.1",
-    "@semantic-release/github": "^10.1.3",
-    "@semantic-release/npm": "^12.0.1",
-    "@types/node": "^20.14.1",
-    "playwright": "^1.45.3",
-    "semantic-release": "^24.0.0",
-    "tsup": "^8.0.2",
-    "lint-staged": "^15.2.2",
-    "prettier": "^3.2.5",
-    "eslint": "^8.57.0",
-    "husky": "^9.0.11",
-    "typescript": "^5.5.2"
+    "@arethetypeswrong/cli": "^0.18.5",
+    "@rsbuild/core": "^2.1.6",
+    "@rslib/core": "^0.23.2",
+    "@rslint/core": "^0.7.0",
+    "@rstest/core": "^0.11.2",
+    "@types/node": "^24.13.3",
+    "prettier": "^3.9.5",
+    "publint": "^0.3.21",
+    "typescript": "^7.0.2"
   },
   "peerDependencies": {
-    "@rsbuild/core": "1.x"
+    "@rsbuild/core": "^1.0.0 || ^2.0.0"
   },
   "peerDependenciesMeta": {
     "@rsbuild/core": {
       "optional": true
     }
   },
-  "packageManager": "pnpm@9.6.0",
   "engines": {
-    "node": ">= 20.15.0"
+    "node": "^20.19.0 || >=22.12.0",
+    "pnpm": ">=11.13.1"
   },
+  "packageManager": "pnpm@11.13.1",
   "publishConfig": {
     "access": "public",
+    "provenance": true,
     "registry": "https://registry.npmjs.org/"
-  },
-  "lint-staged": {
-    "*.{ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{css,less,scss,html,md}": [
-      "prettier --write"
-    ],
-    "package.json": [
-      "prettier --write"
-    ]
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    },
-    "cz-customizable": {
-      "config": ".cz-config.cjs"
-    }
-  },
-  "gitHooks": {
-    "pre-commit": "lint-staged --allow-empty",
-    "commit-msg": "commitlint -E GIT_PARAMS"
   }
 }
