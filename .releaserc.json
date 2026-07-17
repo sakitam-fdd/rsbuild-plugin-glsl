@@ -1,8 +1,5 @@
 {
-  "branches": [
-    "main",
-    { "name": "dev", "prerelease": true }
-  ],
+  "branches": ["main", { "name": "dev", "prerelease": true }],
   "plugins": [
     [
       "@semantic-release/commit-analyzer",
@@ -32,8 +29,8 @@
     [
       "@semantic-release/github",
       {
-        "successComment": false,
-        "failComment": false
+        "successCommentCondition": false,
+        "failCommentCondition": false
       }
     ],
     [
