@@ -1,10 +1,3 @@
-## Unreleased
-
-- Rebuilt the shader transformer around per-compilation state and deterministic dependency graphs.
-- Added `minify`, `removeDuplicatedImports`, `importKeywords`, `onComplete` and `watch` while preserving the `compress` alias.
-- Added Rsbuild 1.x/2.x compatibility coverage, dual ESM/CJS package validation and OIDC publishing.
-- Added a bilingual Rspress documentation site with live WebGL examples.
-
 ## [1.0.1](https://github.com/sakitam-fdd/rsbuild-plugin-glsl/compare/v1.0.0...v1.0.1) (2024-07-31)
 
 ### Bug Fixes
