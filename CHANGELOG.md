@@ -1,3 +1,16 @@
+# [1.2.0](https://github.com/sakitam-fdd/rsbuild-plugin-glsl/compare/v1.1.0...v1.2.0) (2026-07-17)
+
+
+### Bug Fixes
+
+* fix lint ([e4b6e07](https://github.com/sakitam-fdd/rsbuild-plugin-glsl/commit/e4b6e0708a5593bcc172bdbaa0d5a3df1a353bc4))
+* release config ([665b7fd](https://github.com/sakitam-fdd/rsbuild-plugin-glsl/commit/665b7fdb35b0436de9a4d0c531ba85c77cb96645))
+
+
+### Features
+
+* support rsbuild 2.x ([beb3892](https://github.com/sakitam-fdd/rsbuild-plugin-glsl/commit/beb389294df94efb470404481c2cb21f7802b0fa))
+
 ## [1.0.1](https://github.com/sakitam-fdd/rsbuild-plugin-glsl/compare/v1.0.0...v1.0.1) (2024-07-31)
 
 ### Bug Fixes

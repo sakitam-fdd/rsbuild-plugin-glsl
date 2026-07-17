@@ -1,6 +1,6 @@
 {
   "name": "rsbuild-plugin-glsl",
-  "version": "1.0.1",
+  "version": "1.2.0",
   "description": "Import, inline and minify GLSL, WGSL and shader chunks in Rsbuild",
   "keywords": [
     "rsbuild",
