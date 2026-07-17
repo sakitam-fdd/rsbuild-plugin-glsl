@@ -1,10 +1,13 @@
 ---
 pageType: home
+title: Rsbuild GLSL
+description: Reliably import, expand and watch GLSL, WGSL and modular shaders in Rsbuild.
 
 hero:
+  badge: Rsbuild 1.x / 2.x · GLSL / WGSL
   name: rsbuild-plugin-glsl
-  text: Shaders deserve a reliable build pipeline
-  tagline: Modular imports, dependency watching, concurrency safety and GLSL / WGSL types for Rsbuild 1.x and 2.x.
+  text: Put shaders on a reliable build pipeline
+  tagline: Expand modules at build time, track every dependency and import the final GLSL / WGSL source as a string.
   actions:
     - theme: brand
       text: Start in 5 minutes
@@ -14,13 +17,13 @@ hero:
       link: /en/examples/
 
 features:
-  - title: Isolated by design
-    details: Each shader gets an independent dependency graph, safe across parallel, SSR and multi-environment builds.
+  - title: Deterministic expansion
+    details: Each shader gets an independent graph, safe across parallel, SSR and multi-environment builds.
     icon: ◌
-  - title: Dependency aware
-    details: Every nested chunk is registered with Rspack, so edits invalidate exactly the shaders that use it.
+  - title: Dependency-level HMR
+    details: Every recursive chunk is registered with Rspack, so edits rebuild only the entries that use it.
     icon: ⌁
-  - title: Forward looking
-    details: Rsbuild 1/2, GLSL/WGSL, async post-processing and custom import directives in one small plugin.
+  - title: Modern toolchain coverage
+    details: Rsbuild 1.x / 2.x, ESM / CommonJS and GLSL / WGSL declarations in one small plugin.
     icon: ↗
 ---

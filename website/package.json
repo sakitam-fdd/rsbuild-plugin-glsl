@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "rspress dev",
+    "dev": "node ./scripts/dev.mjs",
     "build": "rspress build",
     "preview": "rspress preview",
     "typecheck": "tsc --noEmit"

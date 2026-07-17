@@ -1,6 +1,6 @@
 # WebGPU / WGSL
 
-`.wgsl` 默认在匹配范围内，导入结果同样是字符串。
+`.wgsl` 默认位于匹配范围内，导入结果同样是字符串。下面的示例聚焦于“导入源码 → 创建模块 → 读取诊断”，提交计算任务时还需要创建 bind group、pipeline 和 command encoder。
 
 ```wgsl title="src/shaders/chunks/color.wgsl"
 fn heat(value: f32) -> vec3f {
@@ -23,13 +23,27 @@ fn main(@builtin(global_invocation_id) id: vec3u) {
 ```ts
 import computeSource from './shaders/compute.wgsl';
 
+if (!navigator.gpu) throw new Error('WebGPU is not supported in this browser');
+
 const adapter = await navigator.gpu.requestAdapter();
-const device = await adapter!.requestDevice();
+if (!adapter) throw new Error('No compatible WebGPU adapter was found');
+
+const device = await adapter.requestDevice();
 const module = device.createShaderModule({ code: computeSource });
 
 const diagnostics = await module.getCompilationInfo();
 for (const message of diagnostics.messages) {
-  console[message.type === 'error' ? 'error' : 'warn'](message.message);
+  const log =
+    message.type === 'error'
+      ? console.error
+      : message.type === 'warning'
+        ? console.warn
+        : console.info;
+  log(`${message.lineNum}:${message.linePos} ${message.message}`);
+}
+
+if (diagnostics.messages.some((message) => message.type === 'error')) {
+  throw new Error('WGSL compilation failed');
 }
 ```
 
@@ -55,7 +69,7 @@ pluginGlsl({
 ```ts
 pluginGlsl({
   include: /\.(?:slang|wgsl)$/i,
-  importKeywords: ['#include', 'import'],
+  importKeywords: ['#include', '@import'],
   onComplete: async (source, path) => {
     if (!path.endsWith('.slang')) return source;
     return compileSlangToWgsl(source);

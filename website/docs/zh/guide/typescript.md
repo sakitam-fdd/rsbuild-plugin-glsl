@@ -2,7 +2,7 @@
 
 ## 全局声明
 
-在应用的 `tsconfig.json` 中加入类型入口：
+在应用的 `tsconfig.json` 中注册插件提供的环境类型：
 
 ```json
 {
@@ -18,7 +18,7 @@
 /// <reference types="rsbuild-plugin-glsl/ext" />
 ```
 
-它为 `.glsl`、`.wgsl`、`.vert`、`.frag`、`.vs`、`.fs` 提供 `string` 默认导出。
+该入口会为 `.glsl`、`.wgsl`、`.vert`、`.frag`、`.vs` 和 `.fs` 声明 `string` 类型的默认导出。
 
 ## 配置类型
 
@@ -30,7 +30,7 @@ import type {
 } from 'rsbuild-plugin-glsl';
 ```
 
-`include` 与 `exclude` 使用 Rspack 的 `RuleSetCondition`，可以传正则、字符串条件、函数或条件数组。它们不是 shell glob；需要匹配后缀时优先使用正则：
+`include` 与 `exclude` 使用 Rspack 的 `RuleSetCondition`，可以传入正则、字符串条件、函数或条件数组。它们不是 shell glob；匹配扩展名时应优先使用正则表达式：
 
 ```ts
 const options: PluginGlslOptions = {

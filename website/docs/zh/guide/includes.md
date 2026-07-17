@@ -2,7 +2,7 @@
 
 ## 导入语法
 
-默认识别 `#include`，文件名可带引号、分号，也可省略默认扩展名：
+插件默认识别 `#include`。模块路径可以使用引号或分号，也可以省略默认扩展名：
 
 ```glsl
 #include common;
@@ -10,13 +10,13 @@
 #include '../shared/color'
 ```
 
-未写扩展名时使用 `defaultExtension`（默认 `.glsl`）。`#include <common>` 会保留给 Three.js 等运行时处理，不会被本插件展开。
+未写扩展名时，插件会补上 `defaultExtension`（默认为 `.glsl`）。`#include <common>` 会原样保留，交给 Three.js 等渲染器的预处理阶段解析。
 
 ## 相对路径与根路径
 
 - `#include ./chunk`、`#include ../shared/chunk`：相对当前 shader 文件。
 - `#include /src/shaders/chunk`：相对 `root` 对应的目录。
-- `root` 是相对 Rsbuild 项目根目录解析的，不依赖 `process.cwd()`。
+- `root` 相对 Rsbuild 项目根目录解析，不依赖进程的 `process.cwd()`。
 
 ```ts
 pluginGlsl({
@@ -36,11 +36,11 @@ pluginGlsl({
 });
 ```
 
-这对 Slang 转译前处理、内部 shader DSL 或迁移旧代码很有用。
+这适用于 Slang 编译前处理、内部 Shader DSL，以及旧项目迁移。
 
 ## 重复导入
 
-默认会继续内联重复模块并发出警告，以保持 1.0 版本行为。推荐在确认模块没有依赖重复声明后开启：
+为兼容 1.0 版本，插件默认仍会内联重复模块并发出警告。确认模块不依赖重复声明后，建议开启去重：
 
 ```ts
 pluginGlsl({
@@ -49,7 +49,7 @@ pluginGlsl({
 });
 ```
 
-去重作用域是“单个入口 shader 的完整依赖图”，不同入口之间互不共享状态。
+去重作用域是“单个入口 Shader 的完整依赖图”，不同入口之间不会共享状态。
 
 ## 循环依赖
 
@@ -57,8 +57,8 @@ pluginGlsl({
 
 ## 注释
 
-普通行注释和块注释会在展开阶段移除，因此注释中的 `#include` 不会访问文件系统。`///` 文档注释默认保留；如果其中包含导入指令，该行仍按注释处理。
+普通行注释和块注释会在展开阶段移除，因此注释中的 `#include` 不会触发文件读取。`///` 文档注释默认保留；如果其中包含导入指令，该行仍按注释处理。
 
 ## 监听与缓存
 
-`watch: true`（默认）会把所有递归依赖传递给 Rspack 的依赖图。这同时服务于 HMR、watch 重建和持久缓存失效；它不是只在开发环境生效的开关。只有在 chunk 内容完全由外部系统管理时才建议关闭。
+`watch: true`（默认值）会把所有递归依赖登记到 Rspack 依赖图中，同时服务于 HMR、watch 重建和持久缓存失效。只有当模块内容完全由外部系统管理时，才建议关闭该选项。

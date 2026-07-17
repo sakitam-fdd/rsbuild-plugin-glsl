@@ -1,30 +1,42 @@
+import { Tab, Tabs } from '@rspress/core/theme';
+
 # Getting started
 
-`rsbuild-plugin-glsl` turns `.glsl`, `.wgsl`, `.vert`, `.frag`, `.vs` and `.fs` files into default-exported strings, expanding local shader modules before compilation.
+`rsbuild-plugin-glsl` turns `.glsl`, `.wgsl`, `.vert`, `.frag`, `.vs` and `.fs` files into default-exported strings, expanding local shader modules during the build.
 
 ## Requirements
 
 - Node.js `^20.19.0` or `>=22.12.0`
 - Rsbuild `1.x` or `2.x`
-- Both ESM and CommonJS configuration consumers are supported
+- The package provides both ESM and CommonJS entry points
 
 ## Install
 
-:::code-group
+Install the plugin as a development dependency: it participates in the build and adds no browser runtime.
 
-```bash [pnpm]
+<Tabs groupId="package-manager">
+<Tab label="pnpm">
+
+```bash
 pnpm add -D rsbuild-plugin-glsl
 ```
 
-```bash [npm]
+</Tab>
+<Tab label="npm">
+
+```bash
 npm install --save-dev rsbuild-plugin-glsl
 ```
 
-```bash [yarn]
+</Tab>
+<Tab label="yarn">
+
+```bash
 yarn add --dev rsbuild-plugin-glsl
 ```
 
-:::
+</Tab>
+</Tabs>
 
 ## Register the plugin
 
@@ -62,7 +74,7 @@ export default defineConfig(({ envMode }) => ({
 }));
 ```
 
-`root: '/'` means the Rsbuild project root. An import such as `#include /src/shaders/common` is therefore independent of the directory that launched the process.
+`root: '/'` resolves root-relative imports from the Rsbuild project root. An include such as `#include /src/shaders/common` is therefore independent of the directory that launched the process.
 
 ## Verify an include
 
@@ -80,6 +92,6 @@ vec4 getColor() {
 }
 ```
 
-The imported JavaScript string contains `getColor`, not `#include`. Editing `color.glsl` recompiles every entry shader that depends on it.
+The JavaScript import now contains a source string with `getColor`, not `#include`. Editing `color.glsl` recompiles every entry shader that depends on it.
 
 Next, read [Modular shaders](/en/guide/includes), review [all options](/en/api/options), or copy the [vanilla WebGL example](/en/examples/webgl).

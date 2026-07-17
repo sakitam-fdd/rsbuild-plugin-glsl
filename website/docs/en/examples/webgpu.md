@@ -1,6 +1,6 @@
 # WebGPU / WGSL
 
-`.wgsl` is included in the default condition and exports a string like GLSL.
+`.wgsl` is included in the default condition and exports a string like GLSL. This example covers source import, module creation and diagnostics; dispatching work also requires bind groups, a pipeline and a command encoder.
 
 ```wgsl title="src/shaders/chunks/color.wgsl"
 fn heat(value: f32) -> vec3f {
@@ -23,13 +23,27 @@ fn main(@builtin(global_invocation_id) id: vec3u) {
 ```ts
 import computeSource from './shaders/compute.wgsl';
 
+if (!navigator.gpu) throw new Error('WebGPU is not supported in this browser');
+
 const adapter = await navigator.gpu.requestAdapter();
-const device = await adapter!.requestDevice();
+if (!adapter) throw new Error('No compatible WebGPU adapter was found');
+
+const device = await adapter.requestDevice();
 const module = device.createShaderModule({ code: computeSource });
 
 const diagnostics = await module.getCompilationInfo();
 for (const message of diagnostics.messages) {
-  console[message.type === 'error' ? 'error' : 'warn'](message.message);
+  const log =
+    message.type === 'error'
+      ? console.error
+      : message.type === 'warning'
+        ? console.warn
+        : console.info;
+  log(`${message.lineNum}:${message.linePos} ${message.message}`);
+}
+
+if (diagnostics.messages.some((message) => message.type === 'error')) {
+  throw new Error('WGSL compilation failed');
 }
 ```
 
@@ -42,7 +56,7 @@ Include `.slang` in the rule and call a compiler from the async post-processing 
 ```ts
 pluginGlsl({
   include: /\.(?:slang|wgsl)$/i,
-  importKeywords: ['#include', 'import'],
+  importKeywords: ['#include', '@import'],
   onComplete: async (source, path) => {
     if (!path.endsWith('.slang')) return source;
     return compileSlangToWgsl(source);

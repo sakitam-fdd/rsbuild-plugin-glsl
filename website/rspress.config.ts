@@ -30,11 +30,12 @@ const config: UserConfig = {
   icon: '/logo.svg',
   globalStyles: join(currentDirectory, 'theme/styles.css'),
   head: [
-    ['meta', { name: 'theme-color', content: '#07111f' }],
+    ['meta', { name: 'theme-color', content: '#f6fafc', media: '(prefers-color-scheme: light)' }],
+    ['meta', { name: 'theme-color', content: '#06101c', media: '(prefers-color-scheme: dark)' }],
     ['meta', { name: 'color-scheme', content: 'dark light' }],
   ],
   themeConfig: {
-    darkMode: 'dark',
+    darkMode: 'auto',
     enableContentAnimation: true,
     enableAppearanceAnimation: true,
     lastUpdated: true,
@@ -54,7 +55,7 @@ const config: UserConfig = {
       docRepoBaseUrl: 'https://github.com/sakitam-fdd/rsbuild-plugin-glsl/tree/main/website/docs',
     },
     footer: {
-      message: 'Shaders are source code. Build them like source code. · MIT Licensed',
+      message: 'rsbuild-plugin-glsl · Rsbuild 1.x / 2.x · MIT',
     },
   },
   builderConfig: {

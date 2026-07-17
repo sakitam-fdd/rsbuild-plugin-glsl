@@ -36,7 +36,7 @@ Three.js 内置 chunk 使用尖括号：
 
 ## React Three Fiber
 
-在组件外部导入 shader，避免每次渲染重新创建模块字符串：
+在组件外部导入 Shader，避免每次渲染都重新创建模块字符串：
 
 ```tsx
 import fragmentShader from './ocean.frag';
@@ -52,4 +52,4 @@ export function Ocean() {
 }
 ```
 
-当 chunk 改变时，Rspack 会重新构建拥有该依赖的 shader 模块；应用层是否复用或重建 material 由框架的 HMR 行为决定。
+当 chunk 文件发生变化时，Rspack 会重新构建依赖它的 Shader 模块；应用层是否复用或重建材质，则由框架自身的 HMR 行为决定。
