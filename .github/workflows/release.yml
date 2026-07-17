@@ -2,18 +2,22 @@ name: Release
 
 on:
   push:
-    tags: ['v*']
+    branches: [main, dev]
   workflow_dispatch:
 
 permissions:
-  contents: write
-  id-token: write
+  contents: read
 
 jobs:
-  publish:
+  release:
+    name: Release
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    environment: npm
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
     steps:
       - uses: actions/checkout@v6
         with:
@@ -21,15 +25,11 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: 24
-          registry-url: https://registry.npmjs.org
           package-manager-cache: false
       - uses: pnpm/action-setup@v6
       - run: pnpm install --frozen-lockfile
-      - run: node scripts/check-release-tag.mjs
-      - run: pnpm run verify
-      - name: Publish with npm trusted publishing
-        run: npm publish --access public --provenance
-      - name: Create GitHub release
+      - name: Run semantic-release
         env:
-          GH_TOKEN: ${{ github.token }}
-        run: gh release create "${GITHUB_REF_NAME}" --generate-notes --verify-tag
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_PKG_PUBLIC_TOKEN }}
+        run: pnpm semantic-release
